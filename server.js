@@ -42,6 +42,10 @@ const PUBLIC_API_PATHS = new Set(['/health']);
 
 app.use(express.json({ limit: '20mb' }));
 
+// Browsers request /favicon.ico on every page load; answer before the auth
+// gate / catch-all so it never logs a console error.
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 app.use((req, res, next) => {
   const token = req.query.token || req.headers['x-usernode-token'];
   if (token && USERNODE_JWT_PUBLIC_KEY) {
