@@ -82,7 +82,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Usernode bridge — centrally hosted, never vendored. Powers on-chain
        sendTransaction for the premium-brush unlock. -->
-  <script src="https://social-vibecoding.usernodelabs.org/usernode-bridge/v1/bridge.js"></script>
+  <script src="/usernode-bridge/v1/bridge.js"></script>
   <style>
     /* ============================================================
        Design tokens — single source of truth.
@@ -4863,7 +4863,7 @@
       } catch (_) { return null; }
     }
     const currentUserClaims = decodeJwtPayload(token);
-    const currentUserId = currentUserClaims ? currentUserClaims.id : null;
+    const marketplaceUserId = currentUserClaims ? currentUserClaims.id : null;
 
     // In-memory cache of image_data URLs for listings the user has purchased
     // this session (avoids re-fetching on re-render).
@@ -4981,7 +4981,7 @@
       body.appendChild(sellerEl);
       body.appendChild(priceEl);
 
-      const isSeller = listing.seller_id === currentUserId;
+      const isSeller = listing.seller_id === marketplaceUserId;
       const hasPurchased = listing.purchased || purchasedImages.has(listing.id);
 
       if (isSeller) {
